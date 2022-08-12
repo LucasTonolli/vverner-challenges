@@ -25,5 +25,3 @@ function foobar(int $start, int $end): void
         $start++;
     endwhile; 
 }
-
-foobar(-80,-100);
