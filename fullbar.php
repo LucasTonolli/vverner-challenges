@@ -35,4 +35,3 @@ function foobar(int $start, int $end): void
         endwhile; 
     endif; 
 }
-foobar(1, 20);
