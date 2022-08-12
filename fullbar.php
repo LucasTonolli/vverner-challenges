@@ -1,5 +1,5 @@
 <?php
-function fullbar(int $start, int $end): void 
+function foobar(int $start, int $end): void 
 { 
 
     if($start === 0 && $end === 0) :
@@ -14,14 +14,16 @@ function fullbar(int $start, int $end): void
 
     while($start <= $end) : 
         if ($start % 3 == 0 && $start % 5 == 0) : 
-            echo "full bar<br>"; 
+            echo "$start - foo bar<br>"; 
         elseif ($start % 3 == 0) : 
-            echo "full<br>"; 
+            echo "$start - foo<br>"; 
         elseif ($start % 5 == 0) : 
-            echo "bar<br>";
+            echo "$start - bar<br>";
         elseif ($start % 7 == 0) : 
-            echo "fizz<br>"; 
+            echo "$start - fizz<br>"; 
         endif;
         $start++;
     endwhile; 
 }
+
+foobar(-80,-100);
