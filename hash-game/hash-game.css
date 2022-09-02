@@ -7,3 +7,27 @@
 #hash-game div{
     border: 1px solid black;
 }
+
+div#one,
+div#two,
+div#three{
+    border-top: none;
+}
+
+div#one,
+div#four,
+div#seven{
+    border-left: none;
+}
+
+div#seven,
+div#eight,
+div#nine{
+    border-bottom: none;
+}
+
+div#three,
+div#six,
+div#nine{
+    border-right: none;
+}
