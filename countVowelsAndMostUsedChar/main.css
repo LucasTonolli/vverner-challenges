@@ -1,0 +1,40 @@
+body{
+    text-align: center;
+}
+
+table{
+    text-align: center;
+    border-spacing: 0;
+    margin: 15px auto;
+}
+
+td{
+    border: 1px solid #000000;
+    padding: 10px;
+}
+
+textarea{
+    width: 90%;
+    height: 400px;
+    font-size: 1.2em;
+}
+
+input[type=submit]{
+    background-color: #ff5100;
+    width: 200px;
+    padding: 10px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 10px ;
+    cursor: pointer;
+}
+
+input[type=submit]:hover{
+    background-color: #a73601;
+}
+.error{
+    color: red;
+}
+.letter-used{
+    background-color: gold;
+}
