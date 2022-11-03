@@ -7,14 +7,23 @@ function createDictionary(string $text): array
     $dictionary = [];
 
     foreach ($text as $word) :
-        if(isset($dictionary[strtolower($word)])) :
+        if (isset($dictionary[strtolower($word)])) :
             $dictionary[strtolower($word)]++;
-        else:
+        else :
             $dictionary[strtolower($word)] = 1;
         endif;
     endforeach;
 
     return $dictionary;
+}
+
+function removeAccent($text)
+{
+    return preg_replace(
+        array("/(á|à|ã|â|ä)/", "/(é|è|ê|ë)/", "/(í|ì|î|ï)/", "/(ó|ò|õ|ô|ö)/", "/(ú|ù|û|ü)/"),
+        explode(" ", "a e i o u"),
+        $text
+    );
 }
 
 function createAlphabet(array $dictionary): array
@@ -25,8 +34,8 @@ function createAlphabet(array $dictionary): array
         foreach ($letters as $letter) :
             if (ord($letter) >= 97 && ord($letter) <= 122) :
                 if (isset($alphabet[strtolower($letter)])) :
-                    $alphabet[$letter] += $frequency;
-                else:
+                    $alphabet[normalizer_normalize($letter)] += $frequency;
+                else :
                     $alphabet[$letter] = $frequency;
                 endif;
             endif;
@@ -36,7 +45,7 @@ function createAlphabet(array $dictionary): array
     return $alphabet;
 }
 
-function hasOnlyOneLetterMaxFrequency (array $alphabet): void
+function hasOnlyOneLetterMaxFrequency(array $alphabet): void
 {
     $maxFrequency = max($alphabet);
     $letterMostUsed = '';
@@ -52,13 +61,13 @@ function hasOnlyOneLetterMaxFrequency (array $alphabet): void
     endfor;
 
     if ($flagLetterMostUsed === 1) :
-        echo '<h3>A letra que mais apareceu foi a letra - <span class="letter-used">'. strtoUpper($letterMostUsed). '</span> que apareceu '. $alphabet[$letterMostUsed] .' vezes</h3>';
-    else:
+        echo '<h3>A letra que mais apareceu foi a letra - <span class="letter-used">' . strtoUpper($letterMostUsed) . '</span> que apareceu ' . $alphabet[$letterMostUsed] . ' vezes</h3>';
+    else :
         echo '<h3 class="error">Não teve uma única letra com o máximo de aparições</h3>';
     endif;
 }
 
-function setEmptyLetters ($alphabet):array
+function setEmptyLetters($alphabet): array
 {
     for ($i = 97; $i <= 122; $i++) :
         if (!isset($alphabet[chr($i)])) :
@@ -69,10 +78,10 @@ function setEmptyLetters ($alphabet):array
     return $alphabet;
 }
 
-function showVowelsCount(array $alphabet):void
+function showVowelsCount(array $alphabet): void
 {
     $alphabet = setEmptyLetters($alphabet)
-    ?>
+?>
     <table>
         <thead>
             <tr>
@@ -83,35 +92,35 @@ function showVowelsCount(array $alphabet):void
         <tbody>
             <tr>
                 <td>A</td>
-                <td><?= $alphabet['a']?></td>
+                <td><?= $alphabet['a'] ?></td>
             </tr>
             <tr>
                 <td>E</td>
-                <td><?= $alphabet['e']?></td>
+                <td><?= $alphabet['e'] ?></td>
             </tr>
             <tr>
                 <td>I</td>
-                <td><?= $alphabet['i']?></td>
+                <td><?= $alphabet['i'] ?></td>
             </tr>
             <tr>
                 <td>O</td>
-                <td><?= $alphabet['o']?></td>
+                <td><?= $alphabet['o'] ?></td>
             </tr>
             <tr>
                 <td>U</td>
-                <td><?= $alphabet['u']?></td>
+                <td><?= $alphabet['u'] ?></td>
             </tr>
         </tbody>
     </table>
 <?php }
-function countVowelsAndMostUsedChar(string $text):void
+function countVowelsAndMostUsedChar(string $text): void
 {
     if (strlen($text) > 0 && $text !== ' ') :
-        
+        $text = removeAccent($text);
         $dictionary = createDictionary($text);
-        
+
         $alphabet = createAlphabet($dictionary);
-        
+
         if (count($alphabet) < 1) :
             echo '<h2 class="error "> Nenhuma letra informada ';
             return;
@@ -120,7 +129,7 @@ function countVowelsAndMostUsedChar(string $text):void
         showVowelsCount($alphabet);
 
         hasOnlyOneLetterMaxFrequency($alphabet);
-    else:
+    else :
         echo '<h2 class="error "> Nenhuma letra informada ';
     endif;
 }
@@ -128,6 +137,7 @@ function countVowelsAndMostUsedChar(string $text):void
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -135,10 +145,11 @@ function countVowelsAndMostUsedChar(string $text):void
     <link rel="stylesheet" href="main.css">
     <title>Contagem de Vogais e caractere mais usado</title>
 </head>
+
 <body>
     <h2>Resultado</h2>
     <div>
-        <?php countVowelsAndMostUsedChar($_POST['text_to_get_info']);?>
+        <?php countVowelsAndMostUsedChar($_POST['text_to_get_info']); ?>
     </div>
     <div>
         <a href="index.html">Voltar</a>
