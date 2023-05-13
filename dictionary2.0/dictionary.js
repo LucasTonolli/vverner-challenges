@@ -78,7 +78,13 @@ function addToDictionary(e){
         word.value = '';
         return;
     }
-  
+
+    if(word.value.match(/[.+-,*/!@#$%¨&()_='"]/)){
+        alert('Caracter inválido identificado');
+        word.value = '';
+        return;
+    }
+
     DICTIONARY.addToDictionary(word.value);
     word.value = '';     
 }
@@ -92,6 +98,13 @@ function search(e){
         input.value = '';
         return; 
     }
+
+    if(input.value.match(/[.+-,*/!@#$%¨&()_='"]/)){
+        alert('Caracter inválido identificado');
+        word.value = '';
+        return;
+    }
+
     if(input.value.indexOf(' ') !== -1){
       let letters = input.value.split(' ');
       let interval = [];
