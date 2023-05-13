@@ -108,7 +108,7 @@ function search(e){
     if(input.value.indexOf(' ') !== -1){
       let letters = input.value.split(' ');
       let interval = [];
-      for(i = letters[0].charCodeAt(0); i <= letters[1].charCodeAt(0); i++){
+      for(i = letters[0].toLowerCase().charCodeAt(0); i <= letters[1].toLowerCase().charCodeAt(0); i++){
         interval.push(window.localStorage.getItem(i));
       }
       alert(interval);
