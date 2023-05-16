@@ -92,28 +92,35 @@ function addToDictionary(e){
 function search(e){
     e.preventDefault();
     let input = document.getElementById('search-word');
-
-    if(input.value.trim() === '' || input.value.match(/\d+/)){
+    
+    const value = input.value.trim().replace(/\s\s+/g, ' ');
+    if(value.trim() === '' || value.match(/\d+/)){
         alert('Informe uma palavra válida');
         input.value = '';
         return; 
     }
 
-    if(input.value.match(/[.+-,*/!@#$%¨&()_='"]/)){
+    if(value.match(/[.+-,*/!@#$%¨&()_='"]/)){
         alert('Caracter inválido identificado');
         word.value = '';
         return;
     }
 
-    if(input.value.indexOf(' ') !== -1){
-      let letters = input.value.split(' ');
+    if(value.indexOf(' ') !== -1){
+      let letters = value.split(' ');
+      
+      if (letters[0].length > 1 || letters[1].length > 1){
+        alert('Input inválido');
+        input.value = '';
+        return;
+      }
       let interval = [];
       for(i = letters[0].toLowerCase().charCodeAt(0); i <= letters[1].toLowerCase().charCodeAt(0); i++){
         interval.push(window.localStorage.getItem(i));
       }
       alert(interval);
     } else {
-        let validateWord = input.value.toLowerCase();
+        let validateWord = value.toLowerCase();
         const words = DICTIONARY.getWords();
         let matches;
 
@@ -123,6 +130,14 @@ function search(e){
 
         matches = matches.filter(match => match.matchingLetter !== 0);
         matches = matches.filter(match => match.matchingLetter >= validateWord.length - 2);
+        let sameWordLength = matches.filter(match => match.matchingLetter === validateWord.length);
+
+        if (sameWordLength.length > 0){
+            sameWordLength = sameWordLength.map(match => match.word);
+            alert('Você quis dizer: ' + sameWordLength);         
+            return;
+        }
+        
         matches = matches.map(match => match.word);
         
         if (matches.length === 0){
@@ -134,7 +149,6 @@ function search(e){
 }
 
 function matchingWord(searchWord, compareWord){
-    
     if(searchWord === compareWord){
         return {word : compareWord, matchingLetter : searchWord.length};
     } else{
