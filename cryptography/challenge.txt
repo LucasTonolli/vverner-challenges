@@ -1,0 +1,34 @@
+*Desafio da Cifra de Espiões:*
+
+Você foi recrutado por uma agência de espionagem e precisa criar um programa para criptografar e descriptografar mensagens confidenciais. A cifra que você deve implementar é uma cifra de substituição, na qual cada letra da mensagem original é substituída por outra letra do alfabeto.
+
+Aqui está o alfabeto normal:
+
+
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+
+E aqui está o alfabeto cifrado (uma permutação do alfabeto normal):
+
+
+ZYXWVUTSRQPONMLKJIHGFEDCBA
+
+
+A sua tarefa é criar duas funções: `criptografar` e `descriptografar`. A função `criptografar` deve receber uma mensagem como entrada e retornar a mensagem cifrada, substituindo cada letra pela correspondente no alfabeto cifrado. A função `descriptografar` deve fazer o oposto, transformando a mensagem cifrada de volta para a original.
+
+*Exemplo:*
+
+javascript
+const mensagemOriginal = "HELLO";
+const mensagemCifrada = criptografar(mensagemOriginal);
+console.log(mensagemCifrada); // Deverá imprimir "SVOOL"
+
+const mensagemDescriptografada = descriptografar(mensagemCifrada);
+console.log(mensagemDescriptografada); // Deverá imprimir "HELLO"
+
+
+*Regras:*
+
+- Você só precisa se preocupar com letras maiúsculas.
+- Qualquer caractere que não seja uma letra (por exemplo, espaço, pontuação, números) deve ser mantido inalterado.
+- A mensagem de entrada e a mensagem cifrada/devirão estar no mesmo formato (por exemplo, maiúsculas/miúsculas).
